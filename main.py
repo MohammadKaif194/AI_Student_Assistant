@@ -1,4 +1,4 @@
-import streamlit as st 
+import streamlit as st  
 from utils import qa_solver, summarize_text, career_guidance, expand_text
 
 st.set_page_config(  
@@ -50,7 +50,19 @@ with tab2:
         else:
             st.warning("Please paste some text first!")
 
-    with sub_tab3:
+with tab3: 
+    sub_tab1, sub_tab2 = st.tabs(["Career Advice", "Skill Recommendations"])
+
+    with sub_tab1:  
+        career_question = st.text_input("Type your career question here:", key="career_advice_input")  
+        if st.button("Get Career Advice", key="btn_advice"): 
+            if career_question: 
+                with st.spinner("Generating career advice..."): 
+                    answer = career_guidance(career_question, subfeature="advice") 
+                st.success(answer) 
+            else:
+                st.warning("Please enter a question first!")  
+    with sub_tab2:
         skill_question = st.text_input("Type your desired job/role here:", key="career_skills_input") 
         if st.button("Get Skill Recommendations", key="btn_skills"):  
             if skill_question:
@@ -58,7 +70,4 @@ with tab2:
                     answer = career_guidance(skill_question, subfeature="skills")
                 st.success(answer)
             else:
-
                 st.warning("Please enter a job/role first!")
-
-
