@@ -50,7 +50,7 @@ with tab2:
         else:
             st.warning("Please paste some text first!")
 
-    with sub_tab2:
+    with sub_tab3:
         skill_question = st.text_input("Type your desired job/role here:", key="career_skills_input") 
         if st.button("Get Skill Recommendations", key="btn_skills"):  
             if skill_question:
@@ -60,4 +60,5 @@ with tab2:
             else:
 
                 st.warning("Please enter a job/role first!")
+
 
