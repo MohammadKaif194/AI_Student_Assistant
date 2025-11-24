@@ -1,5 +1,5 @@
 import streamlit as st 
-from utils import qa_solver, summarize_text, career_guidance 
+from utils import qa_solver, summarize_text, career_guidance, expand_text
 
 st.set_page_config(  
     page_title="AI Student Study Assistant", 
@@ -60,3 +60,4 @@ with tab2:
             else:
 
                 st.warning("Please enter a job/role first!")
+
