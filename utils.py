@@ -46,7 +46,9 @@ def summarize_text(text):
         prompt = f"Summarize clearly and concisely:\n\n{chunk}"
         summaries.append(deepseek_request(prompt, feature_type="Summarizer"))
     return "\n\n".join(summaries)
-
+def expand_text(text):
+    prompt = f"Expand this text into a detailed explanation with examples:\n\n{text}"
+    return deepseek_request(prompt, feature_type="Summarizer-Expander")
 def career_guidance(question, subfeature="advice"):
     feature_map = {
         "advice": "Career Guidance - Advice",
@@ -55,3 +57,4 @@ def career_guidance(question, subfeature="advice"):
     prompt_type = feature_map.get(subfeature, "Career Guidance - Advice")
     prompt = f"{prompt_type}: {question}"
     return deepseek_request(prompt, feature_type=prompt_type)
+
