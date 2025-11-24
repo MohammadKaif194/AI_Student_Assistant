@@ -1,4 +1,4 @@
-import streamlit as st  
+import streamlit as st 
 from utils import qa_solver, summarize_text, career_guidance 
 
 st.set_page_config(  
@@ -26,27 +26,30 @@ with tab1:
             st.success(answer) 
         else:
             st.warning("Please enter a question first!")
-with tab2: 
-    text = st.text_area("Paste text/chapter here:", key="summary_input")
-    if st.button("Get Summary", key="btn_summary"): 
+with tab2:
+    summary_type = st.radio(
+        "Choose Summarization Type:",
+        ["Short Summary", "Summarize Expander"],
+        horizontal=True
+    )
+
+    text = st.text_area("Paste text here:", key="summary_input")
+
+    if st.button("Generate", key="btn_summary"):
         if text:
-            with st.spinner("Summarizing text..."): 
-                summary = summarize_text(text)
-            st.success(summary)
+            with st.spinner("Processing..."):
+
+                if summary_type == "Short Summary":
+                    output = summarize_text(text)
+
+                elif summary_type == "Summarize Expander":
+                    output = expand_text(text)
+
+            st.success(output)
+
         else:
             st.warning("Please paste some text first!")
-with tab3: 
-    sub_tab1, sub_tab2 = st.tabs(["Career Advice", "Skill Recommendations"])
 
-    with sub_tab1:  
-        career_question = st.text_input("Type your career question here:", key="career_advice_input")  
-        if st.button("Get Career Advice", key="btn_advice"): 
-            if career_question: 
-                with st.spinner("Generating career advice..."): 
-                    answer = career_guidance(career_question, subfeature="advice") 
-                st.success(answer) 
-            else:
-                st.warning("Please enter a question first!")  
     with sub_tab2:
         skill_question = st.text_input("Type your desired job/role here:", key="career_skills_input") 
         if st.button("Get Skill Recommendations", key="btn_skills"):  
@@ -55,4 +58,5 @@ with tab3:
                     answer = career_guidance(skill_question, subfeature="skills")
                 st.success(answer)
             else:
+
                 st.warning("Please enter a job/role first!")
